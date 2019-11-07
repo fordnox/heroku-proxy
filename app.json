@@ -1,0 +1,17 @@
+{
+  "name": "Heroku proxy",
+  "description": "This app does one little thing - Proxy",
+  "keywords": [
+    "proxy",
+    "welcome"
+  ],
+  "repository": "https://github.com/fordnox/heroku-proxy",
+  "logo": "https://d29fhpw069ctt2.cloudfront.net/icon/image/38840/preview.svg",
+  "env": {
+    "PORT": {
+      "description": "Port number",
+      "value": "80"
+    }
+  },
+  "image": "heroku/python"
+}
