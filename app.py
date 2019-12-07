@@ -1,5 +1,6 @@
 import os
 import requests
+from lxml import html
 
 from flask import request
 from flask import Flask
@@ -31,11 +32,15 @@ def gkeyword(keyword):
     rr.headers["Content-Type"] = r.headers['Content-Type']
     return rr
 
-@app.route('/r/<subreddit>')
+@app.route('/r/<subreddit>/subscribers')
 def gsubreddit(subreddit):
-    url = 'https://subredditstats.com/r/' + subreddit
-    r = requests.get(url)
-    rr = Response(response=r.content, status=r.status_code)
+    url = 'https://old.reddit.com/r/' + subreddit
+    xpath ="//span[@class='subscribers']/span[@class='number']/text()"
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+    r = requests.get(url, headers=headers)
+    tree = html.fromstring(r.content)
+    subscribers = tree.xpath(xpath)
+    rr = Response(response=subscribers, status=r.status_code)
     rr.headers["Content-Type"] = r.headers['Content-Type']
     return rr
 
