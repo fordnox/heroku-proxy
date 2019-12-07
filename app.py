@@ -31,6 +31,14 @@ def gkeyword(keyword):
     rr.headers["Content-Type"] = r.headers['Content-Type']
     return rr
 
+@app.route('/r/<subreddit>')
+def gsubreddit(subreddit):
+    url = 'https://subredditstats.com/r/' + subreddit
+    r = requests.get(url)
+    rr = Response(response=r.content, status=r.status_code)
+    rr.headers["Content-Type"] = r.headers['Content-Type']
+    return rr
+
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
